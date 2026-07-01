@@ -1,0 +1,1115 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>A.ENG - إدارة الديون</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <style>
+    :root{
+      --bg:#F4F1EA;
+      --paper:#FFFFFF;
+      --card:#FFFDF8;
+      --ink:#1A1A1A;
+      --muted:#4A5568;
+      --line:#D6CEC0;
+      --primary:#006D77;
+      --primary2:#004E56;
+      --accent:#FF6B00;
+      --accent2:#E85D04;
+      --green:#087F5B;
+      --red:#C92A2A;
+      --gold:#B7791F;
+      --shadow:0 14px 34px rgba(26,26,26,.14);
+      --shadow2:0 7px 18px rgba(26,26,26,.08);
+      --nav-h:76px;
+    }
+    *{
+      box-sizing:border-box;
+      -webkit-tap-highlight-color:transparent;
+    }
+    html,body{
+      width:100%;
+      min-height:100%;
+      margin:0;
+      overflow-x:hidden;
+      background:#F4F1EA !important;
+      color:#1A1A1A !important;
+      color-scheme:light !important;
+      -webkit-text-size-adjust:100%;
+    }
+    body{
+      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(255,107,0,.14), transparent 30%),
+        linear-gradient(180deg,#F4F1EA,#EFE7DA) !important;
+    }
+    body, div, section, main, article, p, span, label, h1, h2, h3, h4, h5, h6,
+    .card, .mini-card, .person-card, .entry, .entry-title, .section-title h2,
+    .muted, .soft, .theme-option, .invoice-sheet, .invoice-info-box,
+    .invoice-sum-card, .invoice-note-card{
+      color:#1A1A1A !important;
+    }
+    .muted,.entry-meta,.mini-title,.invoice-info-label{
+      color:#4A5568 !important;
+    }
+    button,input,select,textarea{font:inherit}
+    .app{max-width:1120px;margin:auto;padding:14px 12px calc(var(--nav-h) + 24px)}
+    .hero{display:grid;grid-template-columns:1.25fr .75fr;gap:14px;align-items:stretch;margin-bottom:14px}
+    .hero-main{
+      border:2px solid #003E46;
+      border-radius:30px;
+      padding:22px;
+      min-height:185px;
+      color:#FFFFFF !important;
+      background:linear-gradient(135deg,#003E46,#006D77 58%,#FF6B00) !important;
+      box-shadow:var(--shadow);
+    }
+    .hero-main *{color:#FFFFFF !important}
+    .hero-content{position:relative;z-index:2}
+    .brand-row{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+    .brand-box{display:flex;gap:12px;align-items:center}
+    .logo{
+      width:64px;height:64px;border-radius:20px;display:grid;place-items:center;
+      background:#FFFFFF !important;
+      border:3px solid #FFB703;
+      color:#003E46 !important;
+      font-size:19px;font-weight:1000;letter-spacing:.5px
+    }
+    h1{margin:0;font-size:30px;font-weight:1000}
+    .hero-sub{margin-top:5px;font-size:13px;line-height:1.8}
+    .quick-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+    .chip{
+      border:1px solid rgba(255,255,255,.55);
+      background:rgba(255,255,255,.18);
+      color:#FFFFFF !important;
+      border-radius:999px;padding:10px 13px;font-size:12px;font-weight:900;cursor:pointer;text-decoration:none
+    }
+    .date-pill{
+      border:1px solid rgba(255,255,255,.55);
+      background:rgba(255,255,255,.17);
+      color:#FFFFFF !important;
+      border-radius:999px;padding:10px 12px;font-size:12px;font-weight:900;white-space:nowrap
+    }
+    .hero-side{display:grid;gap:12px}
+    .mini-card,.card{
+      background:#FFFDF8 !important;
+      border:2px solid #D6CEC0;
+      box-shadow:var(--shadow2);
+    }
+    .mini-card{border-radius:24px;padding:16px}
+    .card{border-radius:24px;padding:17px;margin-bottom:12px}
+    .mini-title{font-size:12px;font-weight:1000}
+    .mini-value{font-size:22px;font-weight:1000;margin-top:5px;line-height:1.5;color:#1A1A1A !important}
+    .good{color:#087F5B!important}.bad{color:#C92A2A!important}.warn{color:#B7791F!important}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+    .section-title h2{margin:0;font-size:19px;font-weight:1000}
+    .muted{font-size:13px;line-height:1.75}
+    .soft{background:#F8F4EC !important;border:1px solid #D6CEC0;border-radius:18px;padding:13px}
+    .tabs{
+      position:fixed;bottom:0;left:0;right:0;z-index:50;
+      background:#FFFDF8 !important;
+      border-top:2px solid #D6CEC0;
+      box-shadow:0 -8px 25px rgba(26,26,26,.12);
+      padding:8px 10px calc(8px + env(safe-area-inset-bottom));
+    }
+    .tabs-inner{max-width:1120px;margin:auto;display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+    .tab{
+      border:1px solid #D6CEC0;background:#F8F4EC !important;color:#1A1A1A !important;
+      border-radius:16px;padding:9px 4px;font-size:12px;font-weight:1000;cursor:pointer
+    }
+    .tab.active{
+      color:#FFFFFF !important;
+      background:linear-gradient(135deg,#004E56,#006D77) !important;
+      border-color:#004E56
+    }
+    section.screen{display:none}.screen.show{display:block}
+    label{display:block;font-weight:1000;font-size:13px;margin:11px 0 7px;color:#1A1A1A !important}
+    input,select,textarea{
+      width:100%;border:2px solid #C7BBAA;border-radius:16px;background:#FFFFFF !important;
+      color:#111111 !important;padding:13px 13px;outline:none;font-size:15px;
+      -webkit-text-fill-color:#111111 !important;
+    }
+    textarea{min-height:88px;resize:vertical}
+    input::placeholder,textarea::placeholder{color:#6B7280 !important;-webkit-text-fill-color:#6B7280 !important}
+    input:focus,select:focus,textarea:focus{border-color:#006D77;box-shadow:0 0 0 4px rgba(0,109,119,.15)}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+    .btn{
+      border:0;border-radius:16px;padding:13px 14px;font-weight:1000;cursor:pointer;
+      color:#FFFFFF !important;background:linear-gradient(135deg,#004E56,#006D77) !important;font-size:14px;
+      box-shadow:0 8px 18px rgba(0,109,119,.20)
+    }
+    .btn.secondary{background:#FFFFFF !important;color:#1A1A1A !important;border:2px solid #006D77;box-shadow:none}
+    .btn.danger{background:#FFE3E3 !important;color:#C92A2A !important;box-shadow:none;border:1px solid #FFC9C9}
+    .btn.good{background:#D3F9D8 !important;color:#087F5B !important;box-shadow:none;border:1px solid #B2F2BB}
+    .btn.full{width:100%;margin-top:13px}
+    .btn.small{padding:9px 11px;border-radius:13px;font-size:12px}
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .person-card{
+      display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;
+      border:2px solid #D6CEC0;border-radius:20px;padding:14px;margin-top:10px;background:#FFFFFF !important
+    }
+    .person-card h3{margin:0 0 4px;font-size:17px;font-weight:1000}
+    .badges{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+    .badge{
+      display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:7px 9px;
+      font-size:12px;font-weight:1000;background:#F8F4EC !important;color:#1A1A1A !important;border:1px solid #D6CEC0
+    }
+    .badge.good{background:#D3F9D8 !important;color:#087F5B !important;border-color:#B2F2BB}
+    .badge.bad{background:#FFE3E3 !important;color:#C92A2A !important;border-color:#FFC9C9}
+    .badge.warn{background:#FFF3BF !important;color:#B7791F !important;border-color:#FFE066}
+    .entry{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;border-bottom:1px solid #D6CEC0;padding:13px 0}
+    .entry:last-child{border-bottom:0}
+    .entry-title{font-weight:1000}.entry-meta{font-size:12px;color:#4A5568 !important;margin-top:5px;line-height:1.65}
+    .amount{font-size:16px;font-weight:1000;white-space:nowrap}
+    .empty{
+      text-align:center;padding:28px 12px;color:#4A5568 !important;background:#F8F4EC !important;
+      border:1px dashed #C7BBAA;border-radius:20px;margin-top:10px;line-height:1.8
+    }
+    .hint{background:#FFF3BF !important;border:1px solid #FFE066;color:#6B3F00 !important;border-radius:18px;padding:13px;font-size:13px;line-height:1.9;margin-top:12px}
+    .theme-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    .theme-option{border:1px solid #D6CEC0;background:#FFFFFF !important;border-radius:18px;padding:12px;cursor:pointer}
+    .theme-option.active{outline:3px solid rgba(0,109,119,.25);border-color:#006D77}
+    .theme-swatch{height:38px;border-radius:13px;margin-bottom:9px}
+    .sw-default,.sw-midnight,.sw-emerald,.sw-royal,.sw-gold{background:linear-gradient(135deg,#004E56,#FF6B00)}
+    .pin-panel{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:#F8F4EC !important;border:1px solid #D6CEC0;border-radius:18px;padding:13px;margin-top:12px}
+    .lock-screen{
+      position:fixed;inset:0;z-index:999;display:flex;align-items:center;justify-content:center;padding:18px;
+      background:linear-gradient(135deg,#003E46,#006D77,#FF6B00) !important;color:#fff !important
+    }
+    .lock-box{
+      width:min(430px,100%);border:2px solid rgba(255,255,255,.45);background:#FFFDF8 !important;
+      box-shadow:0 30px 90px rgba(0,0,0,.35);border-radius:30px;padding:24px;text-align:center;color:#1A1A1A !important
+    }
+    .lock-box *{color:#1A1A1A !important}
+    .lock-logo{
+      width:82px;height:82px;margin:0 auto 14px;border-radius:26px;display:grid;place-items:center;
+      font-size:20px;font-weight:1000;background:#006D77 !important;border:4px solid #FF6B00;color:#FFFFFF !important
+    }
+    .lock-logo *{color:#fff!important}
+    .lock-box h2{margin:0;font-size:25px}.lock-box p{margin:8px 0 18px;line-height:1.8;font-size:14px;color:#4A5568 !important}
+    .pin-dots{display:flex;justify-content:center;gap:9px;margin:12px 0 16px}
+    .pin-dot{width:12px;height:12px;border-radius:50%;background:#D6CEC0;border:1px solid #C7BBAA}.pin-dot.on{background:#006D77}
+    .lock-box input{text-align:center;letter-spacing:9px;font-size:24px;font-weight:1000;border-color:#006D77;background:#FFFFFF !important;color:#111 !important;-webkit-text-fill-color:#111 !important}
+    .lock-actions{display:grid;gap:9px;margin-top:12px}.lock-msg{min-height:24px;font-size:13px;color:#C92A2A !important;font-weight:1000;margin-top:9px}
+    .invoice-preview,.invoice-preview.pro-invoice{
+      padding:0;overflow:hidden;border-radius:24px;border:2px solid #D6CEC0;background:#FFFFFF !important;color:#1A1A1A !important;box-shadow:0 12px 30px rgba(17,24,39,.08);direction:rtl;margin-top:12px
+    }
+    .invoice-sheet{position:relative;background:#FFFFFF !important;min-height:720px;color:#1A1A1A !important}
+    .invoice-top{color:#fff !important;padding:24px;background:linear-gradient(135deg,#003E46,#006D77,#FF6B00) !important}
+    .invoice-top *{color:#FFFFFF !important}
+    .invoice-top.modern,.invoice-top.minimal{background:linear-gradient(135deg,#003E46,#006D77,#FF6B00) !important}
+    .invoice-brand{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
+    .invoice-mark{width:62px;height:62px;border-radius:20px;display:grid;place-items:center;background:#FFFFFF !important;border:3px solid #FFB703;font-size:18px;font-weight:1000;color:#003E46 !important}
+    .invoice-big-title{font-size:30px;font-weight:1000;margin:0;color:#fff !important}
+    .invoice-sub{color:#FFF4E6 !important;margin-top:5px;font-size:13px;line-height:1.7}
+    .invoice-no{text-align:left;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.45);border-radius:18px;padding:11px 13px;line-height:1.8;min-width:190px}
+    .invoice-person-strip{margin:16px 24px 0;display:grid;grid-template-columns:1.3fr .7fr .7fr;gap:10px;transform:translateY(-18px)}
+    .invoice-info-box{background:#FFFFFF !important;border:1px solid #D6CEC0;border-radius:18px;padding:13px 14px;box-shadow:0 10px 25px rgba(15,23,42,.08)}
+    .invoice-info-label{font-size:11px;font-weight:1000;margin-bottom:5px}.invoice-info-value{font-size:15px;font-weight:1000}
+    .invoice-body{padding:0 24px 24px}
+    .invoice-summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 14px}
+    .invoice-sum-card{border:1px solid #D6CEC0;border-radius:18px;padding:13px;background:#FFFDF8 !important}
+    .invoice-sum-card b{display:block;font-size:12px;color:#4A5568 !important;margin-bottom:6px}.invoice-sum-card strong{font-size:16px;color:#1A1A1A !important;line-height:1.5}
+    .invoice-sum-card.final{background:#E6FFFA !important;border-color:#006D77}
+    .invoice-table.pro{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border:1px solid #D6CEC0;border-radius:16px;font-size:12px;color:#1A1A1A !important}
+    .invoice-table.pro th{background:#004E56 !important;color:white !important;border:0;padding:10px 8px;text-align:right;font-weight:1000}
+    .invoice-table.pro td{border:0;border-bottom:1px solid #D6CEC0;padding:9px 8px;text-align:right;vertical-align:top;color:#1A1A1A !important;background:#FFFFFF !important}
+    .invoice-table.pro tr:nth-child(even) td{background:#FFF8EF !important}.invoice-table.pro tr:last-child td{border-bottom:0}
+    .invoice-note-box{margin-top:14px;display:grid;grid-template-columns:1.1fr .9fr;gap:12px}
+    .invoice-note-card{border:1px solid #D6CEC0;border-radius:18px;padding:14px;background:#FFFFFF !important;line-height:1.9}
+    .invoice-signs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.sign-box{border-top:1px dashed #7C6F64;padding-top:10px;text-align:center;font-weight:900;color:#1A1A1A !important}
+    .invoice-watermark{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-size:92px;font-weight:1000;color:rgba(0,109,119,.05)!important;transform:rotate(-25deg);pointer-events:none}
+    .search{margin:10px 0}
+    @media(max-width:880px){
+      .hero{grid-template-columns:1fr}.hero-side{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.row3{grid-template-columns:1fr}.theme-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:640px){
+      .app{padding:10px 10px calc(var(--nav-h) + 22px)}
+      .hero-main{padding:18px;border-radius:26px}.brand-row{display:block}.date-pill{display:inline-flex;margin-top:12px}
+      h1{font-size:26px}.hero-side{grid-template-columns:1fr}.row{grid-template-columns:1fr}.tabs-inner{grid-template-columns:repeat(6,1fr);gap:3px}
+      .tab{font-size:10.5px;padding:8px 2px}.person-card{grid-template-columns:1fr}.badges{justify-content:flex-start}
+      .pin-panel,.invoice-brand{display:block}.invoice-no{text-align:right;margin-top:12px}
+      .invoice-person-strip,.invoice-summary-grid,.invoice-note-box{grid-template-columns:1fr}
+      .invoice-person-strip{margin:12px 12px 0;transform:none}.invoice-body{padding:0 12px 16px}.invoice-big-title{font-size:24px}
+      .invoice-table.pro{font-size:10px}.invoice-table.pro th,.invoice-table.pro td{padding:6px 4px}
+    }
+    @media print{
+      @page{size:A4;margin:12mm}
+      body{background:#fff!important}
+      .tabs,.no-print,.hero,.screen:not(#invoice),.lock-screen{display:none!important}
+      .app{max-width:none;padding:0}
+      #invoice{display:block!important;margin:0!important}
+      #invoice > .card{box-shadow:none!important;border:0!important;padding:0!important;background:#fff!important}
+      .invoice-preview,.invoice-preview.pro-invoice{box-shadow:none!important;border:0!important;border-radius:0!important;padding:0!important;color:#111!important}
+      .invoice-top,.invoice-table.pro th{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .invoice-watermark{display:flex}
+      .invoice-sheet{min-height:auto}
+      .invoice-person-strip{transform:none;margin:10px 0 12px}
+      .invoice-body{padding:0}
+      .invoice-top{border-radius:0}
+      .invoice-table.pro{font-size:11px}
+      .invoice-note-box{break-inside:avoid}
+    }
+  </style>
+</head>
+<body data-theme="default">
+  <main class="app">
+    <div class="hero">
+      <div class="hero-main">
+        <div class="hero-content">
+          <div class="brand-row">
+            <div class="brand-box">
+              <div class="logo">A.ENG</div>
+              <div>
+                <h1 id="brandTitle">A.ENG</h1>
+                <div class="hero-sub">إدارة ديون وفواتير PDF بتصميم واضح ومناسب للأندرويد.</div>
+              </div>
+            </div>
+            <div class="date-pill" id="todayPill">—</div>
+          </div>
+          <div class="quick-actions">
+            <button class="chip" onclick="switchTab('add')">+ إضافة حركة</button>
+            <button class="chip" onclick="switchTab('invoice')">تصدير فاتورة PDF</button>
+            <button class="chip" onclick="switchTab('people')">أرصدة الأشخاص</button>
+            <button class="chip" onclick="lockApp()">قفل التطبيق</button>
+          </div>
+        </div>
+      </div>
+      <div class="hero-side">
+        <div class="mini-card">
+          <div class="mini-title">لك على الناس</div>
+          <div class="mini-value good" id="totalIn">0</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-title">عليك للناس</div>
+          <div class="mini-value bad" id="totalOut">0</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-title">الصافي العام</div>
+          <div class="mini-value" id="totalNet">0</div>
+        </div>
+      </div>
+    </div>
+
+    <section id="home" class="screen show">
+      <div class="grid">
+        <div class="card">
+          <div class="section-title">
+            <h2>لوحة المتابعة</h2>
+            <span class="badge warn" id="entriesCount">0 حركة</span>
+          </div>
+          <div class="soft">
+            <div class="muted">يعرض التطبيق الرصيد حسب كل عملة بشكل منفصل حتى لا تختلط الحسابات.</div>
+          </div>
+          <div class="hint">
+            <b>تنبيه:</b> الرصيد الموجب يعني أن المبلغ <b>لك</b>، والرصيد السالب يعني أن المبلغ <b>عليك</b>.
+          </div>
+        </div>
+        <div class="card">
+          <div class="section-title">
+            <h2>أكبر أرصدة</h2>
+            <button class="btn secondary small" onclick="switchTab('people')">عرض الكل</button>
+          </div>
+          <div id="topPeople"></div>
+        </div>
+        <div class="card">
+          <div class="section-title">
+            <h2>آخر الحركات</h2>
+            <button class="btn secondary small" onclick="switchTab('log')">السجل</button>
+          </div>
+          <div id="lastEntries"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="add" class="screen">
+      <div class="card">
+        <div class="section-title">
+          <h2>إضافة حركة جديدة</h2>
+          <span class="badge">حفظ تلقائي</span>
+        </div>
+        <form id="entryForm">
+          <label>اسم الشخص</label>
+          <input id="person" placeholder="مثال: محمد ناعس" required list="personList" autocomplete="off" />
+          <datalist id="personList"></datalist>
+
+          <label>نوع الحركة</label>
+          <select id="kind" required>
+            <option value="receivable_debt">دين لي على شخص</option>
+            <option value="receivable_payment">دفعة وصلتني منه</option>
+            <option value="payable_debt">دين علي لشخص</option>
+            <option value="payable_payment">دفعة دفعتها له</option>
+          </select>
+
+          <div class="row3">
+            <div>
+              <label>المبلغ</label>
+              <input id="amount" type="number" inputmode="decimal" step="0.01" min="0.01" placeholder="0" required />
+            </div>
+            <div>
+              <label>العملة</label>
+              <select id="currency">
+                <option value="USD">$ دولار</option>
+                <option value="TRY">₺ تركي</option>
+                <option value="SYP">ل.س سوري</option>
+              </select>
+            </div>
+            <div>
+              <label>التاريخ</label>
+              <input id="date" type="date" required />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label>رقم/وسم اختياري</label>
+              <input id="tag" placeholder="مثال: فاتورة 12 / شغل بالقالب" />
+            </div>
+            <div>
+              <label>طريقة الدفع</label>
+              <select id="method">
+                <option value="">غير محدد</option>
+                <option>نقدي</option>
+                <option>تحويل</option>
+                <option>شغل مقابل الدين</option>
+                <option>دفعة جزئية</option>
+              </select>
+            </div>
+          </div>
+
+          <label>ملاحظة</label>
+          <textarea id="note" placeholder="سبب الدين أو تفاصيل الدفعة"></textarea>
+
+          <button class="btn full" type="submit">حفظ الحركة</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="people" class="screen">
+      <div class="card">
+        <div class="section-title">
+          <h2>الأشخاص والأرصدة</h2>
+          <button class="btn secondary small" onclick="switchTab('invoice')">فاتورة لشخص</button>
+        </div>
+        <input class="search" id="peopleSearch" placeholder="ابحث عن شخص..." oninput="render()" />
+        <div id="peopleList"></div>
+      </div>
+    </section>
+
+    <section id="log" class="screen">
+      <div class="card">
+        <div class="section-title">
+          <h2>سجل الحركات</h2>
+          <div class="toolbar no-print">
+            <button class="btn secondary small" onclick="window.print()">طباعة عامة</button>
+            <button class="btn danger small" onclick="clearAll()">مسح الكل</button>
+          </div>
+        </div>
+        <div class="row3">
+          <input id="logSearch" placeholder="بحث بالاسم أو الملاحظة..." oninput="render()" />
+          <select id="logCurrency" onchange="render()">
+            <option value="">كل العملات</option>
+            <option value="USD">الدولار</option>
+            <option value="TRY">الليرة التركية</option>
+            <option value="SYP">الليرة السورية</option>
+          </select>
+          <select id="logType" onchange="render()">
+            <option value="">كل الحركات</option>
+            <option value="receivable_debt">دين لي</option>
+            <option value="receivable_payment">دفعة وصلتني</option>
+            <option value="payable_debt">دين علي</option>
+            <option value="payable_payment">دفعة دفعتها</option>
+          </select>
+        </div>
+        <div id="logList"></div>
+      </div>
+    </section>
+
+    <section id="invoice" class="screen">
+      <div class="card">
+        <div class="section-title no-print">
+          <h2>تصدير فاتورة PDF حسب الشخص</h2>
+          <button class="btn small" onclick="printInvoice()">تصدير / حفظ PDF</button>
+        </div>
+
+        <div class="row3 no-print">
+          <div>
+            <label>اختر أو اكتب اسم الشخص</label>
+            <input id="invoicePerson" list="personList" placeholder="اسم الشخص" oninput="renderInvoice()" />
+          </div>
+          <div>
+            <label>من تاريخ</label>
+            <input id="invoiceFrom" type="date" onchange="renderInvoice()" />
+          </div>
+          <div>
+            <label>إلى تاريخ</label>
+            <input id="invoiceTo" type="date" onchange="renderInvoice()" />
+          </div>
+        </div>
+
+        <div class="row no-print">
+          <div>
+            <label>عنوان الفاتورة</label>
+            <input id="invoiceTitleInput" value="فاتورة مستحقات" oninput="renderInvoice()" />
+          </div>
+          <div>
+            <label>اسم الجهة / صاحب الدفتر</label>
+            <input id="invoiceOwner" value="A.ENG" oninput="renderInvoice()" />
+          </div>
+        </div>
+
+        <div class="row no-print">
+          <div>
+            <label>ملاحظة أسفل الفاتورة</label>
+            <input id="invoiceNote" value="تم إنشاء هذه الفاتورة من تطبيق A.ENG." oninput="renderInvoice()" />
+          </div>
+          <div>
+            <label>نمط الفاتورة</label>
+            <select id="invoiceStyle" onchange="renderInvoice()">
+              <option value="classic">رسمي كلاسيكي</option>
+              <option value="modern">حديث</option>
+              <option value="minimal">بسيط</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="invoicePreview" class="invoice-preview"></div>
+      </div>
+    </section>
+
+    <section id="settings" class="screen">
+
+      <div class="card">
+        <div class="section-title">
+          <h2>حماية التطبيق PIN</h2>
+          <span class="badge">قفل محلي</span>
+        </div>
+        <div class="muted">الرقم يحمي فتح التطبيق على نفس الجهاز. احتفظ بالـPIN لأن استعادته غير ممكنة إلا بمسح بيانات المتصفح.</div>
+        <div class="pin-panel">
+          <div>
+            <label>PIN الحالي</label>
+            <input id="oldPin" type="password" inputmode="numeric" maxlength="8" placeholder="••••" />
+          </div>
+          <div>
+            <label>PIN الجديد</label>
+            <input id="newPin" type="password" inputmode="numeric" maxlength="8" placeholder="4 أرقام أو أكثر" />
+          </div>
+        </div>
+        <div class="toolbar" style="margin-top:10px">
+          <button class="btn" onclick="changePin()">تغيير PIN</button>
+          <button class="btn secondary" onclick="lockApp()">قفل الآن</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">
+          <h2>التصميم والإعدادات</h2>
+          <span class="badge">5 تصاميم</span>
+        </div>
+        <div class="theme-grid">
+          <div class="theme-option" data-theme-option="default" onclick="setTheme('default')">
+            <div class="theme-swatch sw-default"></div><b>احترافي أزرق</b><div class="muted">رسمي ونظيف</div>
+          </div>
+          <div class="theme-option" data-theme-option="midnight" onclick="setTheme('midnight')">
+            <div class="theme-swatch sw-midnight"></div><b>ليلي فاخر</b><div class="muted">مناسب للعين</div>
+          </div>
+          <div class="theme-option" data-theme-option="emerald" onclick="setTheme('emerald')">
+            <div class="theme-swatch sw-emerald"></div><b>زمردي</b><div class="muted">هادئ وواضح</div>
+          </div>
+          <div class="theme-option" data-theme-option="royal" onclick="setTheme('royal')">
+            <div class="theme-swatch sw-royal"></div><b>ملكي بنفسجي</b><div class="muted">مميز وحديث</div>
+          </div>
+          <div class="theme-option" data-theme-option="gold" onclick="setTheme('gold')">
+            <div class="theme-swatch sw-gold"></div><b>ذهبي</b><div class="muted">مظهر فواتير</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px">
+        <div class="section-title">
+          <h2>النسخ الاحتياطي</h2>
+          <span class="badge">JSON</span>
+        </div>
+        <p class="muted">صدّر نسخة قبل حذف بيانات المتصفح أو تغيير الهاتف. الاستيراد يستبدل البيانات الحالية.</p>
+        <div class="toolbar">
+          <button class="btn" onclick="exportData()">تصدير نسخة</button>
+          <label class="btn secondary" style="display:inline-block;margin:0">
+            استيراد ملف
+            <input type="file" id="importFile" accept="application/json" hidden onchange="importData(event)" />
+          </label>
+        </div>
+        <label>نسخة نصية</label>
+        <textarea id="backupText" placeholder="الصق النسخة هنا للاستيراد"></textarea>
+        <button class="btn secondary full" onclick="importFromText()">استيراد من النص</button>
+      </div>
+    </section>
+  </main>
+
+
+  <div id="lockScreen" class="lock-screen">
+    <div class="lock-box">
+      <div class="lock-logo">A.ENG</div>
+      <h2 id="lockTitle">حماية A.ENG</h2>
+      <p id="lockText">أدخل رقم PIN لفتح التطبيق.</p>
+      <div class="pin-dots" id="pinDots">
+        <span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span>
+      </div>
+      <input id="pinInput" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="PIN" autocomplete="off" />
+      <input id="pinConfirm" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="تأكيد PIN" autocomplete="off" style="margin-top:10px;display:none" />
+      <div class="lock-actions">
+        <button class="btn" id="pinActionBtn" onclick="handlePinAction()">فتح التطبيق</button>
+      </div>
+      <div class="lock-msg" id="lockMsg"></div>
+    </div>
+  </div>
+
+  <nav class="tabs no-print">
+    <div class="tabs-inner">
+      <button class="tab active" data-tab="home" onclick="switchTab('home')">الرئيسية</button>
+      <button class="tab" data-tab="add" onclick="switchTab('add')">إضافة</button>
+      <button class="tab" data-tab="people" onclick="switchTab('people')">الأشخاص</button>
+      <button class="tab" data-tab="log" onclick="switchTab('log')">السجل</button>
+      <button class="tab" data-tab="invoice" onclick="switchTab('invoice')">PDF</button>
+      <button class="tab" data-tab="settings" onclick="switchTab('settings')">تصميم</button>
+    </div>
+  </nav>
+
+<script>
+const KEY = "aeng_debts_v2";
+const OLD_KEY = "aeng_debts_v1";
+const SETTINGS_KEY = "aeng_settings_v2";
+let entries = [];
+let settings = {theme:"default", pin:"5135"};
+
+const labels = {
+  receivable_debt: "دين لي على شخص",
+  receivable_payment: "دفعة وصلتني منه",
+  payable_debt: "دين علي لشخص",
+  payable_payment: "دفعة دفعتها له"
+};
+const currencyNames = {USD:"$", TRY:"₺", SYP:"ل.س"};
+
+function todayISO(){
+  const d = new Date();
+  const z = new Date(d.getTime() - d.getTimezoneOffset()*60000);
+  return z.toISOString().slice(0,10);
+}
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,8); }
+function save(){ localStorage.setItem(KEY, JSON.stringify(entries)); }
+function saveSettings(){ localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); }
+function load(){
+  try {
+    const savedSettings = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "{}");
+    settings = {...settings, ...savedSettings};
+    if(!settings.pin) settings.pin = "5135";
+    settings.theme = "default";
+  } catch(e){ settings.pin = "5135"; settings.theme = "default"; }
+  try {
+    const current = localStorage.getItem(KEY);
+    const old = localStorage.getItem(OLD_KEY);
+    entries = JSON.parse(current || old || "[]");
+    entries = entries.map(normalizeEntry).filter(x => x.amount > 0);
+    save();
+  } catch(e){ entries = []; }
+  document.body.dataset.theme = settings.theme || "default";
+}
+function normalizeEntry(x){
+  return {
+    id: x.id || uid(),
+    person: String(x.person || "").trim() || "بدون اسم",
+    kind: x.kind || "receivable_debt",
+    amount: Number(x.amount || 0),
+    currency: x.currency || "USD",
+    date: x.date || todayISO(),
+    tag: x.tag || "",
+    method: x.method || "",
+    note: x.note || ""
+  };
+}
+function signFor(kind){
+  if(kind === "receivable_debt") return 1;
+  if(kind === "receivable_payment") return -1;
+  if(kind === "payable_debt") return -1;
+  if(kind === "payable_payment") return 1;
+  return 0;
+}
+function debtColumn(kind, amount){
+  return (kind === "receivable_debt" || kind === "payable_debt") ? Number(amount) : 0;
+}
+function paymentColumn(kind, amount){
+  return (kind === "receivable_payment" || kind === "payable_payment") ? Number(amount) : 0;
+}
+function fmt(n, c){
+  const value = Number(n || 0);
+  const fixed = Math.abs(value % 1) > 0 ? value.toLocaleString("en-US", {minimumFractionDigits:2, maximumFractionDigits:2}) : value.toLocaleString("en-US");
+  return fixed + " " + (currencyNames[c] || c);
+}
+function byCurrencyToText(obj, empty="0"){
+  const keys = ["USD","TRY","SYP"].filter(c => Math.abs(obj[c] || 0) > 0.0001);
+  if(!keys.length) return empty;
+  return keys.map(c => fmt(obj[c], c)).join(" / ");
+}
+function calcPeople(){
+  const people = {};
+  for(const e of entries){
+    const name = (e.person || "بدون اسم").trim();
+    if(!people[name]) people[name] = {name, balances:{USD:0,TRY:0,SYP:0}, count:0, last:""};
+    people[name].balances[e.currency] = (people[name].balances[e.currency] || 0) + signFor(e.kind) * Number(e.amount || 0);
+    people[name].count++;
+    if(!people[name].last || e.date > people[name].last) people[name].last = e.date;
+  }
+  return Object.values(people).sort((a,b)=>{
+    const aw = Object.values(a.balances).reduce((s,x)=>s+Math.abs(x),0);
+    const bw = Object.values(b.balances).reduce((s,x)=>s+Math.abs(x),0);
+    return bw-aw || a.name.localeCompare(b.name, "ar");
+  });
+}
+function totals(){
+  const people = calcPeople();
+  const incoming = {USD:0,TRY:0,SYP:0};
+  const outgoing = {USD:0,TRY:0,SYP:0};
+  const net = {USD:0,TRY:0,SYP:0};
+  for(const p of people){
+    for(const c of ["USD","TRY","SYP"]){
+      const v = p.balances[c] || 0;
+      net[c] += v;
+      if(v > 0) incoming[c] += v;
+      if(v < 0) outgoing[c] += Math.abs(v);
+    }
+  }
+  return {incoming,outgoing,net};
+}
+function balanceBadges(balances){
+  let html = "";
+  for(const c of ["USD","TRY","SYP"]){
+    const v = balances[c] || 0;
+    if(Math.abs(v) < 0.0001) continue;
+    const cls = v > 0 ? "good" : "bad";
+    const text = v > 0 ? "لك: " + fmt(v,c) : "عليك: " + fmt(Math.abs(v),c);
+    html += `<span class="badge ${cls}">${text}</span>`;
+  }
+  return html || `<span class="badge">لا يوجد رصيد</span>`;
+}
+function switchTab(id){
+  document.querySelectorAll("section.screen").forEach(s => s.classList.remove("show"));
+  document.getElementById(id).classList.add("show");
+  document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.dataset.tab === id));
+  if(id === "invoice") prepareInvoicePerson();
+  render();
+}
+function render(){
+  document.getElementById("todayPill").textContent = new Date().toLocaleDateString("ar", {weekday:"long", year:"numeric", month:"long", day:"numeric"});
+  const t = totals();
+  document.getElementById("totalIn").textContent = byCurrencyToText(t.incoming);
+  document.getElementById("totalOut").textContent = byCurrencyToText(t.outgoing);
+  document.getElementById("totalNet").textContent = byCurrencyToText(t.net);
+  document.getElementById("entriesCount").textContent = entries.length + " حركة";
+
+  const people = calcPeople();
+  const names = [...new Set(entries.map(e => e.person).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"ar"));
+  document.getElementById("personList").innerHTML = names.map(n=>`<option value="${escapeHtml(n)}"></option>`).join("");
+
+  document.getElementById("topPeople").innerHTML = people.slice(0,4).map(personCard).join("") || `<div class="empty">لا يوجد ديون بعد. ابدأ بإضافة أول حركة.</div>`;
+  document.getElementById("lastEntries").innerHTML = [...entries].slice(-4).reverse().map(entryRow).join("") || `<div class="empty">لا توجد حركات بعد.</div>`;
+
+  const ps = (document.getElementById("peopleSearch")?.value || "").trim().toLowerCase();
+  const filteredPeople = people.filter(p => p.name.toLowerCase().includes(ps));
+  document.getElementById("peopleList").innerHTML = filteredPeople.map(personCard).join("") || `<div class="empty">لا يوجد أشخاص مطابقون للبحث.</div>`;
+
+  const qs = (document.getElementById("logSearch")?.value || "").trim().toLowerCase();
+  const cur = document.getElementById("logCurrency")?.value || "";
+  const typ = document.getElementById("logType")?.value || "";
+  const log = [...entries].reverse().filter(e => {
+    const text = `${e.person} ${e.note || ""} ${e.tag || ""} ${e.method || ""} ${labels[e.kind] || ""}`.toLowerCase();
+    return (!qs || text.includes(qs)) && (!cur || e.currency === cur) && (!typ || e.kind === typ);
+  });
+  document.getElementById("logList").innerHTML = log.map(entryRow).join("") || `<div class="empty">لا توجد حركات في السجل.</div>`;
+
+  document.querySelectorAll(".theme-option").forEach(el => el.classList.toggle("active", el.dataset.themeOption === (settings.theme || "default")));
+  renderInvoice();
+}
+function personCard(p){
+  return `<div class="person-card">
+    <div>
+      <h3>${escapeHtml(p.name)}</h3>
+      <div class="muted">${p.count} حركة • آخر تاريخ: ${escapeHtml(p.last || "-")}</div>
+      <div class="toolbar no-print" style="margin-top:9px">
+        <button class="btn secondary small" onclick="makeInvoiceFor('${escapeAttr(p.name)}')">فاتورة PDF</button>
+        <button class="btn secondary small" onclick="filterLogFor('${escapeAttr(p.name)}')">عرض السجل</button>
+      </div>
+    </div>
+    <div class="badges">${balanceBadges(p.balances)}</div>
+  </div>`;
+}
+function entryRow(e){
+  const s = signFor(e.kind);
+  const amountClass = s > 0 ? "good" : "bad";
+  const prefix = s > 0 ? "+" : "-";
+  return `<div class="entry">
+    <div>
+      <div class="entry-title">${escapeHtml(e.person)} — ${labels[e.kind] || ""}</div>
+      <div class="entry-meta">${escapeHtml(e.date)} ${e.tag ? " • " + escapeHtml(e.tag) : ""} ${e.method ? " • " + escapeHtml(e.method) : ""}</div>
+      ${e.note ? `<div class="entry-meta">${escapeHtml(e.note)}</div>` : ""}
+      <div class="toolbar no-print" style="margin-top:8px">
+        <button class="btn secondary small" onclick="editEntry('${e.id}')">تعديل</button>
+        <button class="btn danger small" onclick="deleteEntry('${e.id}')">حذف</button>
+      </div>
+    </div>
+    <div class="amount ${amountClass}">${prefix}${fmt(e.amount, e.currency)}</div>
+  </div>`;
+}
+function escapeHtml(s){
+  return String(s ?? "").replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+function escapeAttr(s){ return String(s ?? "").replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/"/g,"&quot;"); }
+
+document.getElementById("entryForm").addEventListener("submit", (ev)=>{
+  ev.preventDefault();
+  const e = normalizeEntry({
+    person: document.getElementById("person").value,
+    kind: document.getElementById("kind").value,
+    amount: document.getElementById("amount").value,
+    currency: document.getElementById("currency").value,
+    date: document.getElementById("date").value,
+    tag: document.getElementById("tag").value,
+    method: document.getElementById("method").value,
+    note: document.getElementById("note").value
+  });
+  if(!e.person || !e.amount || e.amount <= 0){ alert("تأكد من الاسم والمبلغ"); return; }
+  entries.push(e); save();
+  ev.target.reset();
+  document.getElementById("date").value = todayISO();
+  switchTab("home");
+});
+
+function deleteEntry(id){
+  if(!confirm("هل تريد حذف هذه الحركة؟")) return;
+  entries = entries.filter(e => e.id !== id);
+  save(); render();
+}
+function editEntry(id){
+  const e = entries.find(x => x.id === id);
+  if(!e) return;
+  const amount = prompt("عدّل المبلغ:", e.amount);
+  if(amount === null) return;
+  const n = Number(amount);
+  if(!n || n <= 0){ alert("مبلغ غير صحيح"); return; }
+  const note = prompt("عدّل الملاحظة:", e.note || "");
+  e.amount = n;
+  e.note = note || "";
+  save(); render();
+}
+function filterLogFor(name){
+  document.getElementById("logSearch").value = name;
+  switchTab("log");
+}
+function makeInvoiceFor(name){
+  document.getElementById("invoicePerson").value = name;
+  switchTab("invoice");
+  setTimeout(renderInvoice, 0);
+}
+function prepareInvoicePerson(){
+  const input = document.getElementById("invoicePerson");
+  if(!input.value && entries.length){
+    const people = calcPeople();
+    if(people[0]) input.value = people[0].name;
+  }
+}
+function getInvoiceEntries(){
+  const name = (document.getElementById("invoicePerson").value || "").trim();
+  const from = document.getElementById("invoiceFrom").value;
+  const to = document.getElementById("invoiceTo").value;
+  return entries.filter(e => {
+    return (!name || e.person.trim() === name) && (!from || e.date >= from) && (!to || e.date <= to);
+  }).sort((a,b)=> (a.date || "").localeCompare(b.date || ""));
+}
+function invoiceTotals(list){
+  const totals = {
+    debt:{USD:0,TRY:0,SYP:0},
+    payment:{USD:0,TRY:0,SYP:0},
+    balance:{USD:0,TRY:0,SYP:0}
+  };
+  for(const e of list){
+    totals.debt[e.currency] += debtColumn(e.kind, e.amount);
+    totals.payment[e.currency] += paymentColumn(e.kind, e.amount);
+    totals.balance[e.currency] += signFor(e.kind) * Number(e.amount || 0);
+  }
+  return totals;
+}
+function renderInvoice(){
+  const preview = document.getElementById("invoicePreview");
+  if(!preview) return;
+  const list = getInvoiceEntries();
+  const person = (document.getElementById("invoicePerson").value || "غير محدد").trim() || "غير محدد";
+  const title = document.getElementById("invoiceTitleInput").value || "فاتورة مستحقات";
+  const owner = document.getElementById("invoiceOwner").value || "A.ENG";
+  const note = document.getElementById("invoiceNote").value || "";
+  const from = document.getElementById("invoiceFrom").value || "بداية السجل";
+  const to = document.getElementById("invoiceTo").value || "نهاية السجل";
+  const style = document.getElementById("invoiceStyle").value || "classic";
+  const invNo = "INV-" + new Date().toISOString().slice(0,10).replaceAll("-","") + "-" + Math.max(1, list.length).toString().padStart(3,"0");
+  const totals = invoiceTotals(list);
+  const topClass = style === "modern" ? "modern" : (style === "minimal" ? "minimal" : "");
+  const rows = list.map((e,i)=>`
+    <tr>
+      <td>${i+1}</td>
+      <td>${escapeHtml(e.date)}</td>
+      <td>${escapeHtml(labels[e.kind] || "")}</td>
+      <td>${escapeHtml(e.tag || "-")}</td>
+      <td>${escapeHtml(e.method || "-")}</td>
+      <td>${debtColumn(e.kind,e.amount) ? fmt(e.amount,e.currency) : "-"}</td>
+      <td>${paymentColumn(e.kind,e.amount) ? fmt(e.amount,e.currency) : "-"}</td>
+      <td>${escapeHtml(e.note || "-")}</td>
+    </tr>
+  `).join("");
+  preview.className = "invoice-preview pro-invoice";
+  preview.innerHTML = `
+    <div class="invoice-sheet">
+      <div class="invoice-watermark">${escapeHtml(owner)}</div>
+      <div class="invoice-top ${topClass}">
+        <div class="invoice-brand">
+          <div style="display:flex;gap:13px;align-items:center">
+            <div class="invoice-mark">A.ENG</div>
+            <div>
+              <div class="invoice-big-title">${escapeHtml(title)}</div>
+              <div class="invoice-sub">كشف حساب مفصل للحركات المالية والدفعات والرصيد النهائي</div>
+            </div>
+          </div>
+          <div class="invoice-no">
+            <div><b>رقم الفاتورة:</b> ${invNo}</div>
+            <div><b>تاريخ الإصدار:</b> ${new Date().toLocaleDateString("ar")}</div>
+            <div><b>عدد الحركات:</b> ${list.length}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="invoice-person-strip">
+        <div class="invoice-info-box">
+          <div class="invoice-info-label">اسم الشخص</div>
+          <div class="invoice-info-value">${escapeHtml(person)}</div>
+        </div>
+        <div class="invoice-info-box">
+          <div class="invoice-info-label">من تاريخ</div>
+          <div class="invoice-info-value">${escapeHtml(from)}</div>
+        </div>
+        <div class="invoice-info-box">
+          <div class="invoice-info-label">إلى تاريخ</div>
+          <div class="invoice-info-value">${escapeHtml(to)}</div>
+        </div>
+      </div>
+
+      <div class="invoice-body">
+        <div class="invoice-summary-grid">
+          <div class="invoice-sum-card">
+            <b>إجمالي الديون</b>
+            <strong>${byCurrencyToText(totals.debt)}</strong>
+          </div>
+          <div class="invoice-sum-card">
+            <b>إجمالي الدفعات</b>
+            <strong>${byCurrencyToText(totals.payment)}</strong>
+          </div>
+          <div class="invoice-sum-card final">
+            <b>الرصيد النهائي</b>
+            <strong>${byCurrencyToText(totals.balance)}</strong>
+          </div>
+        </div>
+
+        ${list.length ? `
+          <table class="invoice-table pro">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>التاريخ</th>
+                <th>نوع الحركة</th>
+                <th>الوسم</th>
+                <th>الدفع</th>
+                <th>الدين</th>
+                <th>الدفعة</th>
+                <th>ملاحظة</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        ` : `<div class="empty" style="color:#6b7280">لا توجد حركات لهذا الاسم ضمن الفترة المحددة.</div>`}
+
+        <div class="invoice-note-box">
+          <div class="invoice-note-card">
+            <b style="color:#0f172a">ملاحظة الفاتورة</b>
+            <div>${escapeHtml(note)}</div>
+          </div>
+          <div class="invoice-note-card">
+            <b style="color:#0f172a">بيانات الجهة</b>
+            <div>${escapeHtml(owner)}</div>
+            <div class="invoice-signs">
+              <div class="sign-box">توقيع صاحب الدفتر</div>
+              <div class="sign-box">توقيع المستلم</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function printInvoice(){
+  const name = (document.getElementById("invoicePerson").value || "").trim();
+  if(!name){ alert("اكتب أو اختر اسم الشخص أولاً"); return; }
+  renderInvoice();
+  if(window.AndroidBridge && typeof AndroidBridge.printInvoice === "function"){
+    AndroidBridge.printInvoice();
+    return;
+  }
+  window.print();
+}
+function setTheme(theme){
+  settings.theme = "default";
+  document.body.dataset.theme = "default";
+  saveSettings();
+  alert("تم تثبيت ألوان A.ENG الواضحة.");
+  render();
+}
+function exportData(){
+  const data = {app:"A.ENG", version:2, exportedAt:new Date().toISOString(), settings, entries};
+  const txt = JSON.stringify(data, null, 2);
+  document.getElementById("backupText").value = txt;
+  const blob = new Blob([txt], {type:"application/json;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "aeng-pro-backup-" + todayISO() + ".json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+function importData(ev){
+  const file = ev.target.files[0];
+  if(!file) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try { applyImport(r.result); }
+    catch(e){ alert("الملف غير صالح"); }
+  };
+  r.readAsText(file);
+}
+function importFromText(){
+  const txt = document.getElementById("backupText").value.trim();
+  if(!txt){ alert("الصق النسخة النصية أولاً"); return; }
+  try { applyImport(txt); }
+  catch(e){ alert("النص غير صالح"); }
+}
+function applyImport(txt){
+  const data = JSON.parse(txt);
+  const incoming = Array.isArray(data) ? data : data.entries;
+  if(!Array.isArray(incoming)) throw new Error("bad");
+  if(!confirm("سيتم استبدال البيانات الحالية بالنسخة المستوردة. متابعة؟")) return;
+  entries = incoming.map(normalizeEntry).filter(x => x.amount > 0);
+  if(data.settings) settings = {...settings, ...data.settings};
+  save(); saveSettings(); document.body.dataset.theme = settings.theme || "default";
+  render(); switchTab("home");
+}
+function clearAll(){
+  if(confirm("حذف كل البيانات نهائيًا من هذا الهاتف؟")){
+    entries = []; save(); render();
+  }
+}
+
+function updatePinDots(value){
+  const dots = document.querySelectorAll("#pinDots .pin-dot");
+  dots.forEach((d,i)=>d.classList.toggle("on", i < Math.min(String(value || "").length, dots.length)));
+}
+function showLockMode(){
+  const hasPin = !!settings.pin;
+  const lock = document.getElementById("lockScreen");
+  const title = document.getElementById("lockTitle");
+  const text = document.getElementById("lockText");
+  const confirm = document.getElementById("pinConfirm");
+  const btn = document.getElementById("pinActionBtn");
+  const msg = document.getElementById("lockMsg");
+  const input = document.getElementById("pinInput");
+  if(!lock) return;
+  lock.style.display = "flex";
+  msg.textContent = "";
+  input.value = "";
+  confirm.value = "";
+  updatePinDots("");
+  if(hasPin){
+    title.textContent = "أدخل PIN";
+    text.textContent = "تطبيق A.ENG مقفل لحماية بيانات الديون.";
+    confirm.style.display = "none";
+    btn.textContent = "فتح التطبيق";
+  }else{
+    title.textContent = "إنشاء PIN أول مرة";
+    text.textContent = "اختر رقم PIN من 4 أرقام أو أكثر لحماية التطبيق.";
+    confirm.style.display = "block";
+    btn.textContent = "حفظ PIN وفتح التطبيق";
+  }
+  setTimeout(()=>input.focus(), 80);
+}
+function hideLock(){
+  const lock = document.getElementById("lockScreen");
+  if(lock) lock.style.display = "none";
+}
+function handlePinAction(){
+  const input = document.getElementById("pinInput");
+  const confirm = document.getElementById("pinConfirm");
+  const msg = document.getElementById("lockMsg");
+  const pin = (input.value || "").trim();
+  if(!/^[0-9]{4,8}$/.test(pin)){
+    msg.textContent = "اكتب PIN من 4 إلى 8 أرقام.";
+    return;
+  }
+  if(!settings.pin){
+    if(pin !== (confirm.value || "").trim()){
+      msg.textContent = "التأكيد غير مطابق.";
+      return;
+    }
+    settings.pin = pin;
+    saveSettings();
+    hideLock();
+    return;
+  }
+  if(pin === settings.pin){
+    hideLock();
+  }else{
+    msg.textContent = "PIN غير صحيح.";
+    input.value = "";
+    updatePinDots("");
+    input.focus();
+  }
+}
+function lockApp(){
+  showLockMode();
+}
+function changePin(){
+  const oldPin = (document.getElementById("oldPin").value || "").trim();
+  const newPin = (document.getElementById("newPin").value || "").trim();
+  if(settings.pin && oldPin !== settings.pin){
+    alert("PIN الحالي غير صحيح");
+    return;
+  }
+  if(!/^[0-9]{4,8}$/.test(newPin)){
+    alert("PIN الجديد يجب أن يكون من 4 إلى 8 أرقام");
+    return;
+  }
+  settings.pin = newPin;
+  saveSettings();
+  document.getElementById("oldPin").value = "";
+  document.getElementById("newPin").value = "";
+  alert("تم تغيير PIN بنجاح");
+}
+document.getElementById("pinInput")?.addEventListener("input", e => updatePinDots(e.target.value));
+document.getElementById("pinInput")?.addEventListener("keydown", e => { if(e.key === "Enter") handlePinAction(); });
+document.getElementById("pinConfirm")?.addEventListener("keydown", e => { if(e.key === "Enter") handlePinAction(); });
+
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+}
+document.getElementById("date").value = todayISO();
+document.getElementById("invoiceTo").value = todayISO();
+load(); render(); showLockMode();
+</script>
+</body>
+</html>
